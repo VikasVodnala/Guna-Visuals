@@ -1,0 +1,191 @@
+
+> guna-visuals@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\Vikas\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\Vikas\.gemini\antigravity\scratch\guna-visuals\package-lock.json
+
+▲ Next.js 16.2.6 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 6 errors:
+./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1
+Export Facebook doesn't exist in target module
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { motion } [36mfrom[0m [32m"framer-motion"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mInstagram[0m, [33mFacebook[0m, [33mYoutube[0m } [36mfrom[0m [32m"lucide-react"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSocialLinks[0m() {
+  [90m7 |[0m   [36mreturn[0m (
+
+The export Facebook was not found in module [project]/.gemini/antigravity/scratch/guna-visuals/node_modules/lucide-react/dist/esm/lucide-react.mjs [app-client] (ecmascript).
+Did you mean to import Webhook?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+
+./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1
+Export Facebook doesn't exist in target module
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { motion } [36mfrom[0m [32m"framer-motion"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mInstagram[0m, [33mFacebook[0m, [33mYoutube[0m } [36mfrom[0m [32m"lucide-react"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSocialLinks[0m() {
+  [90m7 |[0m   [36mreturn[0m (
+
+The export Facebook was not found in module [project]/.gemini/antigravity/scratch/guna-visuals/node_modules/lucide-react/dist/esm/lucide-react.mjs [app-ssr] (ecmascript).
+Did you mean to import Webhook?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+
+./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1
+Export Instagram doesn't exist in target module
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { motion } [36mfrom[0m [32m"framer-motion"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mInstagram[0m, [33mFacebook[0m, [33mYoutube[0m } [36mfrom[0m [32m"lucide-react"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSocialLinks[0m() {
+  [90m7 |[0m   [36mreturn[0m (
+
+The export Instagram was not found in module [project]/.gemini/antigravity/scratch/guna-visuals/node_modules/lucide-react/dist/esm/lucide-react.mjs [app-client] (ecmascript).
+Did you mean to import Star?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+
+./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1
+Export Instagram doesn't exist in target module
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { motion } [36mfrom[0m [32m"framer-motion"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mInstagram[0m, [33mFacebook[0m, [33mYoutube[0m } [36mfrom[0m [32m"lucide-react"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSocialLinks[0m() {
+  [90m7 |[0m   [36mreturn[0m (
+
+The export Instagram was not found in module [project]/.gemini/antigravity/scratch/guna-visuals/node_modules/lucide-react/dist/esm/lucide-react.mjs [app-ssr] (ecmascript).
+Did you mean to import Star?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+
+./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1
+Export Youtube doesn't exist in target module
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { motion } [36mfrom[0m [32m"framer-motion"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mInstagram[0m, [33mFacebook[0m, [33mYoutube[0m } [36mfrom[0m [32m"lucide-react"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSocialLinks[0m() {
+  [90m7 |[0m   [36mreturn[0m (
+
+The export Youtube was not found in module [project]/.gemini/antigravity/scratch/guna-visuals/node_modules/lucide-react/dist/esm/lucide-react.mjs [app-client] (ecmascript).
+Did you mean to import Route?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+
+./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1
+Export Youtube doesn't exist in target module
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { motion } [36mfrom[0m [32m"framer-motion"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mInstagram[0m, [33mFacebook[0m, [33mYoutube[0m } [36mfrom[0m [32m"lucide-react"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSocialLinks[0m() {
+  [90m7 |[0m   [36mreturn[0m (
+
+The export Youtube was not found in module [project]/.gemini/antigravity/scratch/guna-visuals/node_modules/lucide-react/dist/esm/lucide-react.mjs [app-ssr] (ecmascript).
+Did you mean to import Route?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component Browser]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Client Component SSR]
+    ./.gemini/antigravity/scratch/guna-visuals/components/ServicesGrid.tsx [Server Component]
+    ./.gemini/antigravity/scratch/guna-visuals/app/page.tsx [Server Component]
+
+
+    at <unknown> (./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1)
+    at <unknown> (./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1)
+    at <unknown> (./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1)
+    at <unknown> (./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1)
+    at <unknown> (./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1)
+    at <unknown> (./.gemini/antigravity/scratch/guna-visuals/components/SocialLinks.tsx:4:1)
