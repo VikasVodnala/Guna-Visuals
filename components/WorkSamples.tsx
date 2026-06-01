@@ -6,7 +6,7 @@ import Image from "next/image";
 import { X, Maximize2 } from "lucide-react";
 
 export default function WorkSamples() {
-  const [activeMedia, setActiveMedia] = useState<"image" | "video" | null>(null);
+  const [activeMedia, setActiveMedia] = useState<{ type: "image" | "video"; src: string } | null>(null);
 
   // Close modal on escape key
   useEffect(() => {
@@ -48,15 +48,17 @@ export default function WorkSamples() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Image Sample Thumbnail */}
+        {/* Updated grid to 3 columns to beautifully layout all three assets */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+          
+          {/* Sample 1: Image Portfolio */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            onClick={() => setActiveMedia("image")}
-            className="relative w-full aspect-square md:aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(255,122,0,0.15)] group cursor-pointer"
+            transition={{ duration: 0.6 }}
+            onClick={() => setActiveMedia({ type: "image", src: "/assets/work-samples.png" })}
+            className="relative w-full aspect-square sm:aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(255,122,0,0.15)] group cursor-pointer"
           >
             <Image 
               src="/assets/work-samples.png" 
@@ -72,15 +74,47 @@ export default function WorkSamples() {
             </div>
           </motion.div>
 
-          {/* Video Sample Thumbnail */}
+          {/* Sample 2: Original Video Reel */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            onClick={() => setActiveMedia("video")}
-            {/* Changed aspect ratio to 4/3 or video container adjustments to gracefully display vertical content */}
-            className="relative w-full aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-neon-blue/30 shadow-[0_0_40px_rgba(0,243,255,0.15)] bg-black/50 backdrop-blur-xl group flex items-center justify-center cursor-pointer"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            onClick={() => setActiveMedia({ type: "video", src: "/assets/work-video.mp4" })}
+            className="relative w-full aspect-square sm:aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-neon-blue/30 shadow-[0_0_40px_rgba(0,243,255,0.15)] bg-black/50 backdrop-blur-xl group flex items-center justify-center cursor-pointer"
+          >
+            <video 
+              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 relative z-10 pointer-events-none"
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+            >
+              <source src="/assets/work-video.mp4" type="video/mp4" />
+            </video>
+            
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+               <Maximize2 className="w-12 h-12 text-white drop-shadow-lg" />
+            </div>
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-0 text-gray-500 px-4 text-center">
+               <span className="text-sm font-mono uppercase tracking-widest mb-2">Video Reel 1</span>
+               <span className="text-xs"><code className="text-neon-blue">public/assets/work-video.mp4</code></span>
+            </div>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 z-30 pointer-events-none">
+              <span className="text-white font-semibold text-lg tracking-wide">Video Production Reel</span>
+            </div>
+          </motion.div>
+
+          {/* Sample 3: The Second (New) Video Asset */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            onClick={() => setActiveMedia({ type: "video", src: "/assets/the second work.mp4" })}
+            className="relative w-full aspect-square sm:aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-neon-blue/30 shadow-[0_0_40px_rgba(0,243,255,0.15)] bg-black/50 backdrop-blur-xl group flex items-center justify-center cursor-pointer"
           >
             <video 
               className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 relative z-10 pointer-events-none"
@@ -97,14 +131,15 @@ export default function WorkSamples() {
             </div>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center z-0 text-gray-500 px-4 text-center">
-               <span className="text-sm font-mono uppercase tracking-widest mb-2">Video Reel Placeholder</span>
-               <span className="text-xs">Upload your video to <br/><code className="text-neon-blue">public/assets/the second work.mp4</code></span>
+               <span className="text-sm font-mono uppercase tracking-widest mb-2">Video Reel 2</span>
+               <span className="text-xs"><code className="text-neon-blue">public/assets/the second work.mp4</code></span>
             </div>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 z-30 pointer-events-none">
               <span className="text-white font-semibold text-lg tracking-wide">The Mini Roots Eco Growth</span>
             </div>
           </motion.div>
+
         </div>
       </section>
 
@@ -131,26 +166,27 @@ export default function WorkSamples() {
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="relative w-full h-full flex items-center justify-center max-w-6xl"
-              onClick={(e) => e.stopPropagation()} // Prevent clicking media from closing modal
+              onClick={(e) => e.stopPropagation()} // Prevents clicking the item itself from closing modal
             >
-              {activeMedia === "image" && (
+              {activeMedia.type === "image" && (
                 <div className="relative w-full h-full max-h-[85vh]">
                   <Image 
-                    src="/assets/work-samples.png" 
-                    alt="Work Samples Fullscreen" 
+                    src={activeMedia.src} 
+                    alt="Fullscreen Preview" 
                     fill 
                     className="object-contain"
                   />
                 </div>
               )}
-              {activeMedia === "video" && (
+              {activeMedia.type === "video" && (
                 <video 
+                  key={activeMedia.src} // Key forces React to re-render when changing between video elements
                   className="max-w-full max-h-[85vh] h-full object-contain rounded-xl border border-neon-blue/20 shadow-[0_0_50px_rgba(0,243,255,0.2)] bg-black"
                   controls
                   autoPlay 
                   playsInline
                 >
-                  <source src="/assets/the second work.mp4" type="video/mp4" />
+                  <source src={activeMedia.src} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               )}
