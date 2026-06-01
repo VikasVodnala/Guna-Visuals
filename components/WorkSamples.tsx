@@ -79,6 +79,7 @@ export default function WorkSamples() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
             onClick={() => setActiveMedia("video")}
+            {/* Changed aspect ratio to 4/3 or video container adjustments to gracefully display vertical content */}
             className="relative w-full aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border border-neon-blue/30 shadow-[0_0_40px_rgba(0,243,255,0.15)] bg-black/50 backdrop-blur-xl group flex items-center justify-center cursor-pointer"
           >
             <video 
@@ -88,7 +89,7 @@ export default function WorkSamples() {
               muted 
               playsInline
             >
-              <source src="/assets/work-video.mp4" type="video/mp4" />
+              <source src="/assets/the second work.mp4" type="video/mp4" />
             </video>
             
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
@@ -97,11 +98,11 @@ export default function WorkSamples() {
 
             <div className="absolute inset-0 flex flex-col items-center justify-center z-0 text-gray-500 px-4 text-center">
                <span className="text-sm font-mono uppercase tracking-widest mb-2">Video Reel Placeholder</span>
-               <span className="text-xs">Upload your video to <br/><code className="text-neon-blue">public/assets/work-video.mp4</code></span>
+               <span className="text-xs">Upload your video to <br/><code className="text-neon-blue">public/assets/the second work.mp4</code></span>
             </div>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 z-30 pointer-events-none">
-              <span className="text-white font-semibold text-lg tracking-wide">Video Production Reel</span>
+              <span className="text-white font-semibold text-lg tracking-wide">The Mini Roots Eco Growth</span>
             </div>
           </motion.div>
         </div>
@@ -144,12 +145,12 @@ export default function WorkSamples() {
               )}
               {activeMedia === "video" && (
                 <video 
-                  className="w-full max-h-[85vh] object-contain rounded-xl border border-neon-blue/20 shadow-[0_0_50px_rgba(0,243,255,0.2)] bg-black"
+                  className="max-w-full max-h-[85vh] h-full object-contain rounded-xl border border-neon-blue/20 shadow-[0_0_50px_rgba(0,243,255,0.2)] bg-black"
                   controls
                   autoPlay 
                   playsInline
                 >
-                  <source src="/assets/work-video.mp4" type="video/mp4" />
+                  <source src="/assets/the second work.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               )}
