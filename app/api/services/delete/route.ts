@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import { del } from "@vercel/blob";
+import { kv } from "@vercel/kv";
 
 export async function POST(req: Request) {
   try {
@@ -15,13 +15,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Service ID and Item ID are required" }, { status: 400 });
     }
 
-    const dbPath = path.join(process.cwd(), "data", "services.json");
-    let data;
-    try {
-      const fileContent = await fs.readFile(dbPath, "utf-8");
-      data = JSON.parse(fileContent);
-    } catch (e) {
-      return NextResponse.json({ error: "Database not initialized" }, { status: 500 });
+    // Read existing database from Vercel KV
+    let data: any = await kv.get("guna_services");
+    if (!data || !data.services) {
+      return NextResponse.json({ error: "Database not initialized in Vercel KV" }, { status: 500 });
     }
 
     const service = data.services.find((s: any) => s.id === serviceId);
@@ -36,21 +33,20 @@ export async function POST(req: Request) {
 
     const item = service.items[itemIndex];
 
-    // Delete file if it exists and is an uploaded file
-    if (item.mediaUrl && item.mediaUrl.startsWith("/uploads/")) {
-      const filePath = path.join(process.cwd(), "public", item.mediaUrl);
+    // Delete file from Vercel Blob if it exists and is a Vercel Blob URL
+    if (item.mediaUrl && item.mediaUrl.includes("vercel-storage.com")) {
       try {
-        await fs.unlink(filePath);
-      } catch (fileError) {
-        console.warn(`File ${filePath} could not be deleted or doesn't exist:`, fileError);
+        await del(item.mediaUrl);
+      } catch (blobError) {
+        console.warn(`Vercel Blob file ${item.mediaUrl} could not be deleted:`, blobError);
       }
     }
 
     // Remove item from database
     service.items.splice(itemIndex, 1);
 
-    // Save database
-    await fs.writeFile(dbPath, JSON.stringify(data, null, 2));
+    // Save updated data back to Vercel KV
+    await kv.set("guna_services", data);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

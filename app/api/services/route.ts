@@ -1,15 +1,86 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import { kv } from "@vercel/kv";
+
+const defaultServices = [
+  {
+    "id": "commercial-ads",
+    "title": "Commercial Ads",
+    "iconName": "Video",
+    "desc": "High-impact advertisements that drive conversion.",
+    "details": "We produce visually stunning, high-converting commercial advertisements designed to capture your target audience's attention. From concept development, storyboarding, script writing, to high-end filming and post-production, we handle it all to help grow your brand's presence.",
+    "color": "border-neon-orange",
+    "glow": "rgba(255,122,0,0.5)",
+    "delay": 0,
+    "items": []
+  },
+  {
+    "id": "content-writing",
+    "title": "Content Writing",
+    "iconName": "PenTool",
+    "desc": "Compelling narratives that resonate with your audience.",
+    "details": "Words have power. Our copywriters specialize in crafting engaging narratives, ad copies, website contents, screenplays, and SEO-optimized blogs that establish your brand voice and speak directly to the hearts of your audience.",
+    "color": "border-neon-blue",
+    "glow": "rgba(0,243,255,0.5)",
+    "delay": 0.1,
+    "items": []
+  },
+  {
+    "id": "cinematography",
+    "title": "Cinematography",
+    "iconName": "Camera",
+    "desc": "Cinematic visuals tailored for modern brands.",
+    "details": "We offer top-of-the-line cinematography services, shooting with professional cameras, lighting equipment, and state-of-the-art stabilizers. Whether it is a brand documentary, product showcase, or event coverage, we create cinematic masterpieces.",
+    "color": "border-neon-orange",
+    "glow": "rgba(255,122,0,0.5)",
+    "delay": 0.2,
+    "items": []
+  },
+  {
+    "id": "poster-designing",
+    "title": "Poster Designing",
+    "iconName": "Layout",
+    "desc": "Striking graphics that capture immediate attention.",
+    "details": "Our design team creates eye-catching posters, banners, and digital graphics tailored for advertising campaigns, social media, events, and print. We blend colors, layout typography, and visuals to leave a lasting impression.",
+    "color": "border-neon-blue",
+    "glow": "rgba(0,243,255,0.5)",
+    "delay": 0.3,
+    "items": []
+  },
+  {
+    "id": "video-editing",
+    "title": "Video Editing",
+    "iconName": "Film",
+    "desc": "Short & Long-form editing optimized for retention.",
+    "details": "Our editing suite transforms raw footage into high-retention content. We specialize in sound design, color grading, motion graphics, captions, and narrative pacing for YouTube, TikTok, Instagram Reels, and corporate videos.",
+    "color": "border-neon-orange",
+    "glow": "rgba(255,122,0,0.5)",
+    "delay": 0.4,
+    "items": []
+  },
+  {
+    "id": "ai-videos",
+    "title": "AI Videos",
+    "iconName": "Cpu",
+    "desc": "Next-gen AI generated content for scalable media.",
+    "details": "Leverage the power of generative AI. We combine cutting-edge text-to-video, image-to-video, and voice clone models to produce high-impact, scalable, and imaginative AI-generated video campaigns that push boundaries.",
+    "color": "border-neon-blue",
+    "glow": "rgba(0,243,255,0.5)",
+    "delay": 0.5,
+    "items": []
+  }
+];
 
 export async function GET() {
   try {
-    const dbPath = path.join(process.cwd(), "data", "services.json");
-    const fileContent = await fs.readFile(dbPath, "utf-8");
-    const data = JSON.parse(fileContent);
+    let data = await kv.get<{ services: any[] }>("guna_services");
+    if (!data || !data.services) {
+      data = { services: defaultServices };
+      await kv.set("guna_services", data);
+    }
     return NextResponse.json(data);
   } catch (error: any) {
-    console.error("Failed to read services database:", error);
-    return NextResponse.json({ error: "Failed to read database" }, { status: 500 });
+    console.error("Failed to read services from Vercel KV:", error);
+    // Resilient fallback to local default structure if environment keys are not configured yet
+    return NextResponse.json({ services: defaultServices });
   }
 }

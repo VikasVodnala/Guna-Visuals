@@ -1,6 +1,75 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
+import { kv } from "@vercel/kv";
+
+const defaultServices = [
+  {
+    "id": "commercial-ads",
+    "title": "Commercial Ads",
+    "iconName": "Video",
+    "desc": "High-impact advertisements that drive conversion.",
+    "details": "We produce visually stunning, high-converting commercial advertisements designed to capture your target audience's attention. From concept development, storyboarding, script writing, to high-end filming and post-production, we handle it all to help grow your brand's presence.",
+    "color": "border-neon-orange",
+    "glow": "rgba(255,122,0,0.5)",
+    "delay": 0,
+    "items": []
+  },
+  {
+    "id": "content-writing",
+    "title": "Content Writing",
+    "iconName": "PenTool",
+    "desc": "Compelling narratives that resonate with your audience.",
+    "details": "Words have power. Our copywriters specialize in crafting engaging narratives, ad copies, website contents, screenplays, and SEO-optimized blogs that establish your brand voice and speak directly to the hearts of your audience.",
+    "color": "border-neon-blue",
+    "glow": "rgba(0,243,255,0.5)",
+    "delay": 0.1,
+    "items": []
+  },
+  {
+    "id": "cinematography",
+    "title": "Cinematography",
+    "iconName": "Camera",
+    "desc": "Cinematic visuals tailored for modern brands.",
+    "details": "We offer top-of-the-line cinematography services, shooting with professional cameras, lighting equipment, and state-of-the-art stabilizers. Whether it is a brand documentary, product showcase, or event coverage, we create cinematic masterpieces.",
+    "color": "border-neon-orange",
+    "glow": "rgba(255,122,0,0.5)",
+    "delay": 0.2,
+    "items": []
+  },
+  {
+    "id": "poster-designing",
+    "title": "Poster Designing",
+    "iconName": "Layout",
+    "desc": "Striking graphics that capture immediate attention.",
+    "details": "Our design team creates eye-catching posters, banners, and digital graphics tailored for advertising campaigns, social media, events, and print. We blend colors, layout typography, and visuals to leave a lasting impression.",
+    "color": "border-neon-blue",
+    "glow": "rgba(0,243,255,0.5)",
+    "delay": 0.3,
+    "items": []
+  },
+  {
+    "id": "video-editing",
+    "title": "Video Editing",
+    "iconName": "Film",
+    "desc": "Short & Long-form editing optimized for retention.",
+    "details": "Our editing suite transforms raw footage into high-retention content. We specialize in sound design, color grading, motion graphics, captions, and narrative pacing for YouTube, TikTok, Instagram Reels, and corporate videos.",
+    "color": "border-neon-orange",
+    "glow": "rgba(255,122,0,0.5)",
+    "delay": 0.4,
+    "items": []
+  },
+  {
+    "id": "ai-videos",
+    "title": "AI Videos",
+    "iconName": "Cpu",
+    "desc": "Next-gen AI generated content for scalable media.",
+    "details": "Leverage the power of generative AI. We combine cutting-edge text-to-video, image-to-video, and voice clone models to produce high-impact, scalable, and imaginative AI-generated video campaigns that push boundaries.",
+    "color": "border-neon-blue",
+    "glow": "rgba(0,243,255,0.5)",
+    "delay": 0.5,
+    "items": []
+  }
+];
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +83,6 @@ export async function POST(req: Request) {
     const passcode = formData.get("passcode") as string;
     const file = formData.get("file") as File | null;
 
-    // A simple passcode to secure uploads
     const correctPasscode = process.env.ADMIN_PASSCODE || "guna123";
     if (passcode !== correctPasscode) {
       return NextResponse.json({ error: "Invalid admin passcode" }, { status: 401 });
@@ -24,14 +92,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Service ID and Title are required" }, { status: 400 });
     }
 
-    // Read existing database
-    const dbPath = path.join(process.cwd(), "data", "services.json");
-    let data;
-    try {
-      const fileContent = await fs.readFile(dbPath, "utf-8");
-      data = JSON.parse(fileContent);
-    } catch (e) {
-      return NextResponse.json({ error: "Database not initialized" }, { status: 500 });
+    // Read existing database from Vercel KV
+    let data: any = await kv.get("guna_services");
+    if (!data || !data.services) {
+      data = { services: defaultServices };
     }
 
     const serviceIndex = data.services.findIndex((s: any) => s.id === serviceId);
@@ -41,23 +105,17 @@ export async function POST(req: Request) {
 
     let mediaUrl = "";
     
-    // Save file if provided and not "text"
+    // Save file to Vercel Blob if provided and not "text"
     if (mediaType !== "text" && file) {
-      const uploadsDir = path.join(process.cwd(), "public", "uploads");
-      // Ensure the directory exists
-      await fs.mkdir(uploadsDir, { recursive: true });
-
-      const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      
-      // Clean filename
       const timestamp = Date.now();
       const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-      const fileName = `${timestamp}-${sanitizedName}`;
-      const filePath = path.join(uploadsDir, fileName);
+      const fileName = `uploads/${timestamp}-${sanitizedName}`;
 
-      await fs.writeFile(filePath, buffer);
-      mediaUrl = `/uploads/${fileName}`;
+      // Upload file directly to Vercel Blob Store
+      const blob = await put(fileName, file, {
+        access: "public",
+      });
+      mediaUrl = blob.url;
     }
 
     const newItem = {
@@ -73,8 +131,8 @@ export async function POST(req: Request) {
 
     data.services[serviceIndex].items.push(newItem);
 
-    // Save updated data back
-    await fs.writeFile(dbPath, JSON.stringify(data, null, 2));
+    // Save updated data back to Vercel KV
+    await kv.set("guna_services", data);
 
     return NextResponse.json({ success: true, item: newItem });
   } catch (error: any) {
