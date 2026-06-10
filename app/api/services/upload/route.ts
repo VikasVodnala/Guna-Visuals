@@ -92,6 +92,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Service ID and Title are required" }, { status: 400 });
     }
 
+    // Check if Vercel KV environment variables are configured
+    if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+      return NextResponse.json(
+        { error: "Vercel KV is not configured. Please set KV_REST_API_URL and KV_REST_API_TOKEN environment variables." },
+        { status: 503 }
+      );
+    }
+
     // Read existing database from Vercel KV
     let data: any = await kv.get("guna_services");
     if (!data || !data.services) {

@@ -72,6 +72,11 @@ const defaultServices = [
 
 export async function GET() {
   try {
+    if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+      console.warn("Vercel KV environment variables are missing. Using default local fallback.");
+      return NextResponse.json({ services: defaultServices });
+    }
+
     let data = await kv.get<{ services: any[] }>("guna_services");
     if (!data || !data.services) {
       data = { services: defaultServices };
