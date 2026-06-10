@@ -23,7 +23,7 @@ export default function ServicesGrid() {
           viewport={{ once: true, margin: "-100px" }}
           className="text-4xl md:text-5xl font-bold mb-4"
         >
-          Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange to-neon-blue">Expertise</span>
+          Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange to-neon-blue">Expertise watch below </span>
         </motion.h2>
         <div className="w-24 h-1 bg-white/20 mx-auto rounded-full overflow-hidden">
           <motion.div 
